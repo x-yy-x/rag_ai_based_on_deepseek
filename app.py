@@ -1,8 +1,10 @@
 # app.py
+import os
 import streamlit as st
 from knowledge_base import KnowledgeBaseService
 from rag import RagService
 import config_data as cfg
+import tempfile
 
 st.set_page_config(page_title="DeepSeek RAG 系统", layout="wide")
 
@@ -12,17 +14,28 @@ if "kb_service" not in st.session_state:
 if "rag_service" not in st.session_state:
     st.session_state["rag_service"] = RagService()
 
-# 侧边栏：文件上传 [cite: 70]
+# app.py (侧边栏上传部分修改)
 with st.sidebar:
     st.header("知识库管理")
-    uploaded_file = st.file_uploader("上传 TXT 资料", type=["txt"])
+    uploaded_file = st.file_uploader("上传资料", type=["txt", "pdf"]) # 增加 pdf 类型
+    
     if uploaded_file:
-        content = uploaded_file.getvalue().decode("utf-8")
         if st.button("更新至向量库"):
-            with st.spinner("处理中..."):
-                msg = st.session_state["kb_service"].upload_by_str(content, uploaded_file.name)
+            with st.spinner("正在处理文档..."):
+                if uploaded_file.type == "application/pdf":
+                    # PDF 需要通过文件路径读取，创建临时文件
+                    with tempfile.NamedTemporaryFile(delete=False, suffix=".pdf") as tmp_file:
+                        tmp_file.write(uploaded_file.getvalue())
+                        tmp_path = tmp_file.name
+                    
+                    msg = st.session_state["kb_service"].upload_pdf(tmp_path, uploaded_file.name)
+                    os.remove(tmp_path) # 清理临时文件
+                else:
+                    # 原有的 TXT 处理逻辑
+                    content = uploaded_file.getvalue().decode("utf-8")
+                    msg = st.session_state["kb_service"].upload_by_str(content, uploaded_file.name)
+                
                 st.success(msg)
-
 # 主界面：对话 [cite: 63]
 st.title("🤖 DeepSeek 智能 RAG 问答")
 
