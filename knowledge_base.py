@@ -73,3 +73,12 @@ class KnowledgeBaseService:
         self.chroma.add_texts(chunks, metadatas=[metadata for _ in chunks])
         save_md5(md5_hex)
         return f"[成功] 文档 {file_name} 已向量化，切分为 {len(chunks)} 块"
+    
+    
+    def search_documents(self, query: str, top_k: int = 3):
+        """
+        仅进行向量相似度检索，返回最相关的文本片段
+        """
+        # 使用 similarity_search 返回 Document 对象列表
+        results = self.chroma.similarity_search(query, k=top_k)
+        return results
