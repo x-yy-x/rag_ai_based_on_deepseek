@@ -12,10 +12,10 @@ separators = ["\n\n", "\n", "。", "！", "？", " ", ""]
 max_split_char_number = 500
 
 # 检索配置
-similarity_threshold = 3  # 对应 top-k=3 [cite: 42]
+similarity_threshold = 3  # 对应 top-k=3
 
 # 模型配置
-# 嵌入模型建议使用本地 bge 或兼容 API [cite: 36]
+# 嵌入模型建议使用本地 bge 或兼容 API
 embedding_model_name = "text-embedding-v4" 
 # 确保环境变量已配置 DEEPSEEK_API_KEY
 chat_model_name = "deepseek-chat" 

@@ -6,7 +6,7 @@ langchain
 langchain-core
 langchain-community
 
-# 模型接入 (DeepSeek & DashScope)
+# 模型接入
 langchain-deepseek
 dashscope
 
@@ -14,9 +14,5 @@ dashscope
 langchain-chroma
 chromadb
 
-# 文档处理 (PDF 支持)
+# 文档处理
 pypdf
-
-# 实用工具
-hashlib
-# datetime, json, os, tempfile 等属于 Python 标准库，无需写入

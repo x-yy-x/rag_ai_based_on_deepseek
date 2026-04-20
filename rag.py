@@ -3,7 +3,7 @@ from langchain_deepseek import ChatDeepSeek # 需安装 pip install langchain-de
 from langchain_community.embeddings import DashScopeEmbeddings
 from langchain_chroma import Chroma
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
-from langchain_core.runnables import RunnablePassthrough, RunnableWithMessageHistory, RunnableLambda
+from langchain_core.runnables import RunnableWithMessageHistory
 from langchain_core.output_parsers import StrOutputParser
 import config_data as config
 from file_history_store import get_history
@@ -18,7 +18,6 @@ class RagService:
         )
         self.retriever = vector_db.as_retriever(search_kwargs={"k": config.similarity_threshold})
 
-        # 按照作业要求构建 Prompt 
         self.prompt_template = ChatPromptTemplate.from_messages([
             ("system", """你是一个专业的 AI 助手。请严格根据以下【参考内容】回答问题。
             1. 如果参考内容中没有相关信息，请直接说“根据现有资料无法回答”，不要编造。

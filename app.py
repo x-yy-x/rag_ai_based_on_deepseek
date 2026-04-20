@@ -14,7 +14,7 @@ if "kb_service" not in st.session_state:
 if "rag_service" not in st.session_state:
     st.session_state["rag_service"] = RagService()
 
-# app.py (侧边栏上传部分修改)
+# app.py
 with st.sidebar:
     st.header("知识库管理")
     uploaded_file = st.file_uploader("上传资料", type=["txt", "pdf"]) # 增加 pdf 类型
@@ -36,7 +36,7 @@ with st.sidebar:
                     msg = st.session_state["kb_service"].upload_by_str(content, uploaded_file.name)
                 
                 st.success(msg)
-# 主界面：对话 [cite: 63]
+
 st.title("🤖 DeepSeek 智能 RAG 问答")
 
 if "messages" not in st.session_state:
@@ -55,7 +55,7 @@ if prompt := st.chat_input("请输入您的问题"):
         response_placeholder = st.empty()
         full_response = ""
         
-        # 使用流式输出增加交互感 [cite: 67]
+        # 使用流式输出增加交互感
         for chunk in st.session_state["rag_service"].chain.stream(
             {"input": prompt}, config=cfg.session_config
         ):

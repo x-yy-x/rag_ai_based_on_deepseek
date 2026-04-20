@@ -1,4 +1,4 @@
-# knowledge_base.py (完整代码)
+# knowledge_base.py
 import os
 import hashlib
 from datetime import datetime
