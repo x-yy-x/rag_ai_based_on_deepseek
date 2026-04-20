@@ -1,18 +1,10 @@
-# 基础框架
 streamlit
-
-# LangChain 核心组件
 langchain
 langchain-core
 langchain-community
-
-# 模型接入
 langchain-deepseek
 dashscope
-
-# 向量数据库
 langchain-chroma
 chromadb
-
-# 文档处理
 pypdf
+protobuf==4.25.3

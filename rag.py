@@ -1,5 +1,5 @@
 # rag.py
-from langchain_deepseek import ChatDeepSeek # 需安装 pip install langchain-deepseek
+from langchain_deepseek import ChatDeepSeek
 from langchain_community.embeddings import DashScopeEmbeddings
 from langchain_chroma import Chroma
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
